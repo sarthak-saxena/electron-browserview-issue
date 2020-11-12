@@ -31,24 +31,6 @@ const createWindow = () => {
 	mainWindow.loadFile("main.html");
   mainWindow.on("closed", () => (mainWindow = null));
 
-  mainWindow.webContents.on('did-finish-load', () => {
-  	const script = 'const element = document.getElementById("browserView");' +
-			'const bounds = element.getBoundingClientRect();' +
-			'JSON.stringify(bounds)'
-		mainWindow.webContents.executeJavaScript(script).then((bounds) => {
-			bounds = JSON.parse(bounds)
-			const view = new BrowserView()
-			mainWindow.addBrowserView(view)
-			view.setBounds({
-				x: Math.floor(bounds.x),
-				y: Math.floor(bounds.y),
-				width: Math.floor(bounds.width),
-				height: 300
-			})
-			view.webContents.loadFile('browserView.html')
-		})
-	})
-
   mainWindow.webContents.on(
     "new-window",
     (e, url, frameName, disposition, options) => {

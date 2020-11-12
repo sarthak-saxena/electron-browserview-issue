@@ -25,6 +25,24 @@
         height: 80%;
       } */
     </style>
+    <script>
+      const createWebview = (src, ref) => {
+          const wv = document.createElement("webview");
+          wv.src = src;
+          wv.setAttribute(
+            "webpreferences",
+            "nativeWindowOpen=yes, sandbox=yes, defaultEncoding=utf-8"
+          );
+          wv.setAttribute("allowpopups", "allowpopups");
+          wv.setAttribute("data-test", "test");
+          wv.setAttribute("style", "height: 100%; border: 1px solid gray;");
+          ref.appendChild(wv);
+        };
+        window.onload = () => {
+          const btnCreate = document.getElementById("create");
+          createWebview("./webview.html", document.getElementById("webview"));
+        };
+    </script>
   </head>
 
   <body>
@@ -33,7 +51,7 @@
       <button>just to set focus1</button>
       <button>just to set focus2</button>
       <button>just to set focus3</button>
-      <div id="browserView" style="margin-top: 10px;"></div>
+      <div id="webview" style="margin-top: 10px; height: 100%;"></div>
     </main>
   </body>
 </html>
